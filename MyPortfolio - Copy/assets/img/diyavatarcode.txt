@@ -1,0 +1,170 @@
+char currentkey='1';
+PImage b;
+
+void setup() {
+size(600,600);
+background (255); 
+smooth();
+}
+
+void draw() { 
+
+  // triggering the clear_print function
+  if(keyPressed) {
+    clear_print(); 
+  }
+  // triggering the newkeychoice
+  if(mousePressed) {
+  // testbox();
+    newkeyChoice(); 
+  }
+}
+
+
+void testbox() {
+  fill(0);
+  rect(mouseX,mouseY,100,100);
+  rect(100,100,100,100);
+  rect(34,56,100,100);
+  rect(34,20,100,100);
+}
+
+void newkeyChoice() {
+  
+  if (key == '1' ) {
+    fill(255);
+    rect(0,0,600,600);
+  
+  } else if (key =='2'){
+    fill(0);
+    ellipse(300,280,400,400);//hair//keep
+    rect(100,300,400,300);//hair long  
+  
+  } else if (key =='3'){
+    fill(0);
+    ellipse(300,280,400,400);//hair
+    arc(300,280,400,400,PI,TWO_PI);//top hair
+    ellipse(150,450,150,150);//tail
+    fill(255);
+    ellipse(220,450,130,130);//tail hollow
+    fill(0);
+    ellipse(450,450,150,150);//tail
+    fill(255);
+    ellipse(380,450,130,130);//tail hollow
+    fill(0);
+    ellipse(300,280,350,350);//back hair
+    
+  }else if (key == '4'){
+    fill(0);
+    ellipse(300,280,400,400);//hair
+    arc(180, 360, 200, 230, radians(90), radians(270));//hair left
+    arc(420, 360, 200, 230, radians(270), radians(450));//hair right
+      
+  }else if (key == '5'){
+    strokeWeight(6); //Stroke weight to 6 pixels
+    fill(249, 196, 187);
+    ellipse(130,320,100,110);//left ear
+    ellipse(470,320,100,110);//right ear
+    fill(255,226,209);
+    ellipse(130,315,50,60);//left ear inside
+    ellipse(470,315,50,60);//right ear inside
+    fill(255,226,209);
+    rect(265,390,70,100);//neck
+    fill(255,226,209);
+    ellipse(300,300,300,300);//face
+    fill(random(255),random(255),random(255),random(255));
+    ellipse(300,650,360,350);//body
+    fill(255,226,209);
+    ellipse(300,500,130,57);//chest
+  
+  }else if (key == '6'){
+    fill(0);
+    arc(300, 300, 300, 300, radians(180), radians(360));//bangs
+    
+  }else if (key == '7'){
+    fill(0);
+    arc(350, 160, 300, 200, radians(45), radians(225));//bangs
+    
+  }else if (key == '8'){
+    fill(0);
+    arc(400, 170, 200, 250, radians(45), radians(225));//bangs
+    arc(200, 170, 200, 250, radians(315), radians(495));//bangs
+  
+  }else if (key == '9'){
+    fill(255,255,255,63);
+    ellipse(220,320,150,150);//glass frame left
+    ellipse(380,320,150,150);//glass frame right
+    fill(255);
+    line(295,300,305,300);//glass
+    
+  }else if (key == '0'){
+    fill(255,255,255,63);
+    rect(155,240,130,130);//glass frame left
+    rect(315,240,130,130);//glass frame right
+    fill(255);
+    line(285,300,315,300);//glass
+  
+  }else if (key == 'q'){
+    fill(255);
+    ellipse(220,300,105,105);//eye left
+    ellipse(380,300,105,105);//eye right
+    
+    fill(0);
+    ellipse(235,300,75,75);//pupil left
+    fill(0);
+    ellipse(395,300,75,75);//pupil right
+  
+  }else if (key == 'w'){
+    fill(255);
+    arc(220,300,120,120,0,PI);//eye left
+    arc(380,300,120,120,0,PI);//eye right
+    
+    fill(0);
+    arc(235,300,80,80,0,PI);//pupil left
+    fill(0);
+    arc(395,300,80,80,0,PI);//pupil right
+  
+  }else if (key == 'e'){
+    strokeWeight(8);
+    noFill();
+    arc(220,300,100,90,radians(0),radians(180));//eyes
+    arc(380,300,100,90,radians(0),radians(180));//eyes
+    line(200,345,195,355);//lash left
+    line(225,345,220,355);//lash left
+    line(400,345,405,355);//lash right
+    line(375,345,380,355);//lash right
+  
+  }else if (key == 'r'){
+    line(280,390,320,380);//mouth
+  
+  }else if (key == 't'){
+    noFill();
+    arc(300,380,90,30,radians(0),radians(180));//mouth
+    
+  }else if (key == 'y'){
+    noFill();
+    beginShape();
+    vertex(250,380);
+    vertex(300,400);
+    vertex(350,380);
+    endShape();//mouth
+    
+  }else if (key == 'u'){
+    ellipse(130,360,5,5);//left pierce
+    ellipse(470,360,5,5);//right pierce
+  }
+  char currentkey = key;
+}
+
+
+void clear_print() {
+  // these 2 options let you choose between clearing the background
+  // and saveing the current image as a file.
+  if (key == 'x' || key == 'X') {
+    background(255);
+  } else if (key == 'p' || key == 'P') {
+    saveFrame("images/00sd_m-####.png");
+    //this will save the name as the intials and a millis counting number.
+    // it will always be larger in value then the last one.
+  }
+}
