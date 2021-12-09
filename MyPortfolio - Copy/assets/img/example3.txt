@@ -1,0 +1,133 @@
+int counter1 = -45;
+int counter2 = -45;
+
+void setup() {
+  size(1200,600);
+  background(40);
+  fill(200);
+  smooth();
+}
+
+void draw(){
+  background(255);
+  fill(255);
+  pair();
+  if (frameCount < 200 ) {
+    saveFrame("images/face-######.png");
+  } else {  
+    exit();  
+  }
+}
+
+void pair() {
+  char1();
+  char2();
+}
+
+//parent function 1
+void char1() {
+  hair(-300,0);
+  head(-300,0);
+  eyes(-300,0,1);
+  pupil(-300,0);
+  bangs(-300,0);
+  mouth(-300,0,0);
+}
+
+//parent function 2
+void char2() {
+ hair(300,0);
+ head(300,0);
+ eyes(300,0,0);
+ pupil(300,0);
+ bangs(300,0);
+ mouth(300,20,1);
+}
+
+//custom function 1
+void hair(int xpos, int ypos) {
+  fill(0);
+  ellipse(width/2+xpos,height/2-20+ypos,400,400);
+  arc(width/2-120+xpos, height/2+60+ypos, 200, 230, radians(90), radians(270));//hair left
+  arc(width/2+120+xpos, height/2+60+ypos, 200, 230, radians(270), radians(450));//hair right
+}
+
+//custom function 2
+void head(int xpos, int ypos) {
+  strokeWeight(5);
+  fill(249, 196, 187);
+  ellipse(width/2-170+xpos,height/2+20+ypos,100,110);//left ear
+  ellipse(width/2+170+xpos,height/2+20+ypos,100,110);//right ear
+  fill(255,226,209);
+  ellipse(width/2-170+xpos,height/2+15+ypos,50,60);//left ear inside
+  ellipse(width/2+170+xpos,height/2+15+ypos,50,60);//right ear inside
+  fill(255,226,209);
+  rect(width/2-35+xpos,height/2+90+ypos,70,100);//neck
+  fill(255,226,209);
+  ellipse(width/2+xpos,height/2+ypos,300,300);//face
+  fill(255);
+  ellipse(width/2+xpos,height/2+350+ypos,360,350);//body
+  fill(255,226,209);
+  ellipse(width/2+xpos,height/2+200+ypos,130,57);//chest
+}
+
+//custom function 3
+void bangs(int xpos, int ypos) {
+  fill(0);
+  arc(width/2+xpos,height/2+ypos, 300, 300, radians(180), radians(360));//bangs
+}
+
+//custom function 4
+void eyes(int xpos, int ypos,int glass){
+  if (glass==1) {
+    strokeWeight(6);
+    fill(255,255,255,63);
+    ellipse(width/2-80+xpos,height/2+20+ypos,150,150);//glass frame left
+    ellipse(width/2+80+xpos,height/2+20+ypos,150,150);//glass frame right
+    fill(255);
+  }
+  fill(255);
+  ellipse(width/2-80+xpos,height/2+ypos,105,105);//eye left(220,300,105,105)110,150
+  ellipse(width/2+80+xpos,height/2+ypos,105,105);//eye right(380,300,105,105)
+}
+
+//custom function 5
+void mouth (int xpos, int ypos, int happy){
+  if (happy==1) {
+    noFill();
+    beginShape();
+    vertex(width/2-50+xpos,height/2+80+ypos);
+    vertex(width/2+xpos,height/2+60+ypos);
+    vertex(width/2+50+xpos,height/2+80+ypos);
+    endShape();//mouth
+  }
+  if (happy==0) {
+    noFill();
+    beginShape();
+    vertex(width/2-50+xpos,height/2+80+ypos);
+    vertex(width/2+xpos,height/2+100+ypos);
+    vertex(width/2+50+xpos,height/2+80+ypos);
+    endShape();//mouth
+   }
+}
+
+//custom function 6
+void pupil (int xpos, int ypos){
+  pushMatrix();
+  translate(width/2-80+xpos, height/2+ypos);
+  rotate(radians(counter2));
+  scale(.75);
+  fill(0);
+  ellipse(20, 20, 75, 75);
+  popMatrix();
+ 
+  pushMatrix();
+  translate(width/2+80+xpos, height/2+ypos);
+  rotate(-radians(counter2));
+  scale(.75);
+  fill(0);
+  ellipse(20, 20, 75, 75);
+  popMatrix();
+  counter1 = counter1 -3;
+  counter2 = counter2 + 3;
+}

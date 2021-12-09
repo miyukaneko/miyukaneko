@@ -1,0 +1,159 @@
+var introSnd, snd1,snd2,snd3, snd4, snd5;
+var startImg, helpImg, titleImg;
+var titleBg, dialogueBg, middleSceneBg, leftSceneBg, rightSceneBg;
+
+function preload() {
+  introSnd = loadSound("sounds/prrp.mp3");
+  snd1 = loadSound("sounds/ponk.mp3");
+  endsnd = loadSound("sounds/Gameover.mp3");
+  bgm = loadSound("sounds/bgm.mp3");
+  snd2 = loadSound("sounds/clickon.mp3");
+  snd3 = loadSound("sounds/clickoff.mp3");
+  snd4 = loadSound("sounds/start.mp3");
+  snd5 = loadSound("sounds/select.mp3");
+  foundsnd = loadSound("sounds/robot.mp3");
+
+
+
+  helpImg = loadImage("images/help.png");
+  startImg = loadImage("images/start.png");
+  startaImg = loadImage("images/starta.png");
+  titleImg = loadImage("images/title.png");
+  helpscreenImg = loadImage("images/helpscreen.png");
+
+  // img32 = loadImage("images/")
+  //
+  titleBg = loadImage("images/titlebg.png");
+  middleSceneBg = loadImage("images/middleSceneBg.png");
+  leftSceneBg = loadImage("images/leftSceneBg.png");
+  rightSceneBg = loadImage("images/rightSceneBg.png");
+  endscreen = loadImage("images/endscreen.png");
+  mSpriteHappy = loadImage("images/mSprite-Happy.png");
+  mSpriteDown = loadImage("images/mSprite-Down.png");
+  mSpriteNeutral = loadImage("images/mSprite-Neutral.png");
+  mSpriteSmile = loadImage("images/mSprite-Smile.png");
+  rSpriteNeutral = loadImage("images/rSprite-Neutral.png");
+  rSpriteDown = loadImage("images/rSprite-Down.png");
+
+  arrowRImg = loadImage("images/arrowR.png");
+  arrowLImg = loadImage("images/arrowL.png");
+
+  kirbyImg = loadImage("images/hidingKirby.png");
+  kirbyImgGood = loadImage("images/kirbySceneGood.png");
+  kirbyImgBad = loadImage("images/kirbySceneBad.png");
+
+  curtainsImg = loadImage("images/hidingCurtains.png");
+  curtainsImgGood = loadImage("images/curtainSceneGood.png");
+  curtainsImgBad  = loadImage("images/curtainSceneBad.png");
+
+  shadowImg = loadImage("images/hidingShadow.png");
+  shadowImgGood = loadImage("images/shadowSceneGood.png");
+  shadowImgBad = loadImage("images/shadowSceneBad.png");
+
+  blanketImg = loadImage("images/hidingBlanket.png");
+  blanketImgGood = loadImage("images/BlanketSceneGood.png");
+  blanketImgBad = loadImage("images/BlanketSceneBad.png");
+
+  windowImg = loadImage("images/hidingWindow.png");
+  windowImgGood = loadImage("images/hidingWindowgood.png");
+  windowImgBad = loadImage("images/hidingWindowbad.png");
+
+  cabinetImg = loadImage("images/hidingCabinet.png");
+  cabinetImgGood = loadImage("images/hidingCabinetgood.png");
+  cabinetImgBad = loadImage("images/hidingCabinetbad.png");
+
+  chairImg = loadImage("images/hidingChair.png");
+  chairImgGood = loadImage("images/hidingChairgood.png");
+  chairImgBad = loadImage("images/hidingChairbad.png");
+
+  shelfImg = loadImage("images/hidingShelf.png");
+  shelfImgGood = loadImage("images/hidingShelfgood.png");
+  shelfImgBad = loadImage("images/hidingShelfbad.png");
+
+}
+
+// global manager object
+var mgr;
+
+function setup() {
+    createCanvas(800, 800);
+    mgr = new SceneManager();
+    // Preload scenes. Preloading is normally optional
+    // ... but needed if showNextScene() is used.
+    mgr.addScene (intro);
+    mgr.addScene (dialogue);
+
+    mgr.addScene (middleScene);
+    mgr.addScene (kirbyScene);
+    mgr.addScene (curtainScene);
+
+    mgr.addScene (leftScene);
+    mgr.addScene (shadowScene);
+    mgr.addScene (windowScene);
+    mgr.addScene (blanketScene);
+
+    mgr.addScene (rightScene);
+    mgr.addScene (cabinetScene);
+    mgr.addScene (chairScene);
+    mgr.addScene (shelfScene);
+
+    mgr.addScene (endScene);
+
+
+    //Beginning
+    mgr.showNextScene(intro);
+
+}
+
+function draw()
+{
+    // pass the current draw function into the SceneManager
+    mgr.draw();
+}
+
+function mousePressed()
+{
+   // pass the mousePressed message into the SceneManager
+  mgr.mousePressed();
+}
+
+ function mouseMoved()
+ {
+   // pass the mouseMoved message into the SceneManager
+   mgr.handleEvent("mouseDragged");
+}
+
+function mouseDragged()
+{
+   // pass the mouseMoved message into the SceneManager
+    mgr.handleEvent("mouseDragged");
+}
+
+// function keyPressed()
+// {
+//     // You can optionaly handle the key press at global level...
+//     switch(key)
+//     {
+//         case '1':
+//             mgr.showScene( intro );
+//             break;
+//         case '2':
+//             mgr.showScene( dialoge );
+//             break;
+//         case '3':
+//             mgr.showScene( scene3 );
+//             break;
+//         case '4':
+//             mgr.showScene( scene4 );
+//             break;
+//         case '5':
+//             mgr.showScene( scene5 );
+//             break;
+//          case 'e':
+//             mgr.showScene( intro );
+//             break;
+//     }
+//
+//     // ... then dispatch via the SceneManager.
+//     mgr.keyPressed();
+// }

@@ -1,0 +1,34 @@
+1 - reset canvas
+
+HAIR 2-4
+2 - long hair 
+3 - pigtail
+4 - short hair
+
+FACE 
+5 - head
+
+BANGS 6-8
+6 - straight bangs
+7 - side ways bangs
+8 - middle part
+
+GLASSES 9 - 0
+9 - round glasses
+0 - square glasses
+
+EYES q-e
+q - looking sideways eyes
+w - tired eyes
+e - eyes closed
+
+MOUTH r-y
+r - slanted mouth
+t - happy mouth
+y - happy mouth angled
+
+PIERCING
+u - piercings
+
+SAVE
+p - save image

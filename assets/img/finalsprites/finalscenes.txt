@@ -1,0 +1,1490 @@
+
+// =============================================================
+// =                         BEGIN SCENES                      =
+// =============================================================
+
+// exmample of global var that can be used between scenes
+let loy= 0;
+var next = -1;
+var remyLoc;
+
+////////////////////////////// 1 /////////////////
+function intro()  {
+
+    var helpButton, startButton, helpScreen; //Clickables
+    var helpScreenVis = 0;
+    next = -1;
+    this.setup = function() {
+        console.log("We are at setup for scene1");
+        // do all stuff you want to initialize things,
+        // as this it need to be called only once.
+        background("blue");
+        textAlign(CENTER);
+        textSize(29);
+
+        //Clickables
+        helpButton = new Clickable();
+        helpButton.text = "";
+        helpButton.strokeWeight = 0;
+        /*************************/
+        helpScreen = new Clickable();
+        helpScreen.text = "";
+        helpScreen.strokeWeight = 0;
+        /*************************/
+        startButton = new Clickable();
+        startButton.text = "";
+        startButton.strokeWeight = 0;
+
+        //Image setting
+        helpButton.image = helpImg;
+        startButton.image = startImg;
+        helpScreen.image = helpscreenImg;
+
+        /*************************/
+        helpButton.onHover = function() {
+            helpButton.image = helpImg;
+            helpButton.color = "#ffedc1";
+            helpButton.resize(280.54, 148.72);
+            helpButton.locate(88.73, 189.64);
+
+        }
+        helpButton.onOutside = function() {
+            helpButton.image = helpImg;
+            helpButton.color = "#ffedc1";
+            helpButton.resize(215.8, 114.4);
+            helpButton.locate(121.1, 206.8);
+        }
+        helpButton.onPress = function() {
+            helpScreenVis = 1;
+            if (snd2.isPlaying()) {
+                snd2.stop();
+            } else {
+                snd2.play();
+            }
+        }
+        /*************************/
+        helpScreen.onHover = function() {
+            helpScreen.image = helpscreenImg;
+        }
+        helpScreen.onOutside = function() {
+            helpScreen.image = helpscreenImg;
+            helpScreen.color = "#ffedc1";
+            helpScreen.resize(680, 680);
+            helpScreen.locate(60, 60);
+        }
+        helpScreen.onPress = function() {
+            helpScreenVis = 0;
+            if (snd3.isPlaying()) {
+                snd3.stop();
+            } else {
+                snd3.play();
+            }
+        }
+        /*************************/
+        startButton.onHover = function() {
+            startButton.resize(280.54, 148.72);
+            startButton.locate(430.73, 189.64);
+        }
+        startButton.onOutside = function() {
+            startButton.image = startImg;
+            startButton.color = "#ffedc1";
+            startButton.resize(215.8, 114.4);
+            startButton.locate(463.1, 206.8);
+        }
+        startButton.onPress = function() {
+             next = 1;//Go to dialogue intro
+             if (snd4.isPlaying()) {
+                 snd4.stop();
+             } else {
+                 snd4.play();
+             }
+        }
+    }
+    // enter() will be called each time SceneManager switches
+    // to this scene
+    this.enter = function()  {
+        console.log("We are at entering scene1");
+        remyLoc = int(random(7)); //This is the winning location
+        // remyLoc = int(0);//kirby
+        // remyLoc = int(1);//curtain
+        // remyLoc = int(2);//shadow
+        // remyLoc = int(3);//window
+        // remyLoc = int(4);//blanket
+        // remyLoc = int(5); //cabinet
+        // remyLoc = int(6);//chair
+        // remyLoc = int(7);//shelf
+        loy = 100;
+        background("red");
+        next = -1;
+
+        endsnd.stop();
+        if (bgm.isPlaying()) {
+        // .isPlaying() returns a boolean
+            bgm.pause(); // .play() will resume from .pause() position
+        //  background(255, 0, 0);
+        } else {
+            bgm.loop();
+          //background(0, 255, 0);
+        }
+
+        // if (introSnd.isPlaying()) {
+        // // .isPlaying() returns a boolean
+        //     introSnd.pause(); // .play() will resume from .pause() position
+        // //  background(255, 0, 0);
+        // } else {
+        //     introSnd.play();
+        //   //background(0, 255, 0);
+        // }
+    }
+    this.draw = function()
+    {
+        background(255,255,255);
+        image(titleBg,0,0,width,height);
+        image(titleImg, 0,40,800,133);
+
+        push();
+
+          helpButton.draw();
+          startButton.draw();
+          if (helpScreenVis == 1) {
+            helpScreen.draw();
+          }
+        pop();
+        if (next == 1) {
+          this.sceneManager.showNextScene();
+        }
+    }
+    // this.keyPressed = function() {
+    // }
+    this.mousePressed = function() {
+    //this.sceneManager.showScene(scene2);
+    }
+}
+
+///////////////////////  Dialogue  ////////////////////////
+
+function dialogue() {
+    var mSprite, rSprite, dialogueBox;
+    let dialogueCounter = 0, mCounter = 0, rCounter = 0;
+    let next = -1;
+    this.setup = function()  {
+        console.log("We are at setup for scene2");
+        /*************************/
+        mSprite = new Clickable();
+        mSprite.text = "";
+        mSprite.image = mSpriteDown; //First sprite
+        mSprite.strokeWeight = 0;
+        mSprite.locate(20, 80);
+        mSprite.resize(395,505);
+        mSprite.color = "#ffedc1";
+        /*************************/
+        rSprite = new Clickable();
+        rSprite.text = "";
+        rSprite.image = rSpriteNeutral; //First sprite
+        rSprite.strokeWeight = 0;
+        rSprite.locate(460, 300);
+        rSprite.resize(295,301.75)
+        rSprite.color = "#ffedc1";
+        /*************************/
+        dialogueBox = new Clickable();
+        dialogueBox.locate(25, 575);
+        dialogueBox.resize(750, 150);
+        dialogueBox.color = "white";
+        dialogueBox.strokeWeight = 6.5;
+        dialogueBox.stroke = "#807F79";
+        dialogueBox.textFont = "helvetica";
+        dialogueBox.textSize = 40;
+        dialogueBox.textScaled = true;
+        dialogueBox.textColor = "#807F79";
+        dialogueBox.text = "Man I'm bummed out from\nall these finals..."; //First dialogue text
+        /*************************/
+
+        dialogueBox.onPress = function() {
+          dialogueCounter++;
+          switch(dialogueCounter) {
+            case 1:
+              dialogueBox.text = "Huh...Remy?\nYou're gonna cheer me up?";
+              mSprite.image = mSpriteNeutral;
+              rSprite.image = rSpriteDown;
+              break;
+            case 2:
+              dialogueBox.text = "Let's play hide and seek..?\nSounds fun!";
+              mSprite.image = mSpriteSmile;
+              rSprite.image = rSpriteNeutral;
+              break;
+            case 3:
+              dialogueBox.text = "Alright...I'll be it!\nLet's go!"
+              mSprite.image = mSpriteHappy;
+              rSprite.image = rSpriteDown;
+              break;
+            case 4:
+              next = 1;
+              break;
+            default:
+          }
+        }
+    }
+
+    this.enter = function()  {
+        //introSnd.pause();
+        console.log("We are entering scene2");
+        next = -1;
+        dialogueCounter = 0;
+
+        dialogueBox.text = "Man I'm bummed out from\nall these finals...";
+        mSprite.image = mSpriteDown;
+        rSprite.image = rSpriteNeutral;
+      //  snd2.loop();
+        // if (snd2.isPlaying()) {
+        // // .isPlaying() returns a boolean
+        //     snd2.pause(); // .play() will resume from .pause() position
+        // //  background(255, 0, 0);
+        // } else {
+        //     snd2.play();
+        //   //background(0, 255, 0);
+        // }
+    }
+
+    this.draw = function() {
+      background("#ffedc1");
+      textAlign(CENTER);
+      textSize(29);
+
+      push();
+          mSprite.draw();
+          rSprite.draw();
+          dialogueBox.draw();
+
+          if (next == 1) {
+            this.sceneManager.showScene(middleScene);
+          }
+      pop();
+
+    }
+
+    this.mousePressed = function()
+    {
+      //console.log("exit");
+      //this.sceneManager.showNextScene();
+    }
+    // this.keyPressed = function()  {
+    //   }
+
+}
+
+/////////////////////// Middle Scene ///////////////////////
+function middleScene() {
+    let next = -1;
+    var kirbySprite, curtainSprite, leftArrow, rightArrow;
+    var helpGameButton, helpScreen; //Clickables
+    var helpScreenVis = 0;
+
+    this.setup = function()  {
+        background("blue");
+        textAlign(CENTER);
+        textSize(29);
+        console.log("We are at setup for middleScene");
+
+
+        //Clickables
+        helpGameButton = new Clickable();
+        helpGameButton.text = "help";
+        helpGameButton.textColor = "#807F79";
+        helpGameButton.textSize = 30;
+        helpGameButton.strokeWeight = 9;
+        helpGameButton.stroke = "#807F79";
+        helpGameButton.width = 100;
+        helpGameButton.height = 80;
+        helpGameButton.locate(20, 20);
+        /*************************/
+        helpScreen = new Clickable();
+        helpScreen.text = "";
+        helpScreen.strokeWeight = 0;
+        /*************************/
+
+        //Image setting
+        helpScreen.image = helpscreenImg;
+
+        /*************************/
+        helpGameButton.onHover = function() {
+            helpGameButton.color = "#9fe1ff";
+            helpGameButton.textColor = "#fffff";
+            helpGameButton.locate(20, 20);
+
+        }
+        helpGameButton.onOutside = function() {
+            helpGameButton.color = "#fffff";
+            helpGameButton.textColor = "#807F79";
+
+        }
+        helpGameButton.onPress = function() {
+            helpScreenVis = 1;
+            if (snd2.isPlaying()) {
+                snd2.stop();
+            } else {
+                snd2.play();
+            }
+        }
+        /*************************/
+        helpScreen.onHover = function() {
+            helpScreen.image = helpscreenImg;
+        }
+        helpScreen.onOutside = function() {
+            helpScreen.image = helpscreenImg;
+            helpScreen.color = "#ffedc1";
+            helpScreen.resize(680, 680);
+            helpScreen.locate(60, 60);
+        }
+        helpScreen.onPress = function() {
+            helpScreenVis = 0;
+            if (snd3.isPlaying()) {
+                snd3.stop();
+            } else {
+                snd3.play();
+            }
+        }
+        /*************************/
+    }
+
+    this.enter = function()  {
+        // snd1.pause();
+        // snd2.pause();
+        next = -1;
+        console.log("We are entering middleScene");
+        /*****************/
+        rightArrow = createSprite(750, 400);
+        rightArrow.addImage(arrowRImg);
+        rightArrow.scale = 0.3;
+        rightArrow.mouseActive = true;
+        /*****************/
+        leftArrow = createSprite(50, 400);
+        leftArrow.addImage(arrowLImg);
+        leftArrow.scale = 0.3;
+        leftArrow.mouseActive = true;
+        /*****************/
+        kirbySprite = createSprite(150, 675);
+        kirbySprite.addImage(kirbyImg);
+        kirbySprite.scale = 0.4;
+        kirbySprite.mouseActive = true;
+        /*****************/
+        curtainSprite = createSprite(475, 400);
+        curtainSprite.addImage(curtainsImg);
+        curtainSprite.scale = 0.4;
+        curtainSprite.mouseActive = true;
+        /*****************/
+
+        /*****************/
+        kirbySprite.onMouseOver = function() {
+          this.scale = 0.43;
+        }
+        kirbySprite.onMouseOut = function() {
+          this.scale = 0.4;
+        }
+        kirbySprite.onMouseReleased = function() {
+          next = 3;
+          if (snd1.isPlaying()) {
+              snd1.stop();
+          } else {
+              snd1.play();
+          }
+        }
+        /*****************/
+        curtainSprite.onMouseOver = function() {
+          this.scale = 0.43;
+        }
+        curtainSprite.onMouseOut = function() {
+          this.scale = 0.4;
+        }
+        curtainSprite.onMouseReleased = function() {
+          next = 4;
+          if (snd1.isPlaying()) {
+              snd1.stop();
+          } else {
+              snd1.play();
+          }
+        }
+        /*****************/
+        rightArrow.onMouseOver = function() {
+          this.scale = 0.33;
+        }
+        rightArrow.onMouseOut = function() {
+          this.scale = 0.3;
+        }
+        rightArrow.onMouseReleased = function() {
+          next = 1; //Go right
+          if (snd3.isPlaying()) {
+              snd3.stop();
+          } else {
+              snd3.play();
+          }
+        }
+        /*****************/
+        leftArrow.onMouseOver = function() {
+          this.scale = 0.33;
+        }
+        leftArrow.onMouseOut = function() {
+          this.scale = 0.3;
+        }
+        leftArrow.onMouseReleased = function() {
+          next = 2; //Go left
+          if (snd3.isPlaying()) {
+              snd3.stop();
+          } else {
+              snd3.play();
+          }
+        }
+      //  snd2.loop();
+        // if (snd3.isPlaying()) {
+        // // .isPlaying() returns a boolean
+        //     snd3.pause(); // .play() will resume from .pause() position
+        // //  background(255, 0, 0);
+        // } else {
+        //     snd3.play();
+        //   //background(0, 255, 0);
+        // }
+    }
+
+    this.draw = function() {
+        background(0,0,255);
+        image(middleSceneBg,0,0,width,height);
+          push();
+            drawSprites();
+            helpGameButton.draw();
+          if (helpScreenVis == 1) {
+            helpScreen.draw();
+          }
+          pop();
+        switch(next) {
+          case 0:
+            console.log("case 0");
+            this.sceneManager.showScene(middleScene);
+            break;
+          case 1:
+            console.log("case 1");
+            kirbySprite.remove();
+            curtainSprite.remove();
+            rightArrow.remove();
+            leftArrow.remove();
+            this.sceneManager.showScene(rightScene);
+            break;
+          case 2:
+            console.log("case 2");
+            kirbySprite.remove();
+            curtainSprite.remove();
+            rightArrow.remove();
+            leftArrow.remove();
+            this.sceneManager.showScene(leftScene);
+            break;
+          case 3:
+            console.log("case 3");
+            kirbySprite.remove();
+            curtainSprite.remove();
+            rightArrow.remove();
+            leftArrow.remove();
+            this.sceneManager.showScene(kirbyScene);
+            break;
+          case 4:
+            console.log("case 4");
+            kirbySprite.remove();
+            curtainSprite.remove();
+            rightArrow.remove();
+            leftArrow.remove();
+            this.sceneManager.showScene(curtainScene);
+            break;
+          default:
+            //console.log("default");
+        }
+    }
+    this.mousePressed = function() {
+
+      //console.log("exit");
+      //this.sceneManager.showNextScene();
+    }
+    // this.keyPressed = function()  {
+    //   }
+}
+
+function kirbyScene() {
+  let next = -1;
+  var textBox;
+  this.setup = function() {
+    console.log("Setup kirbyScene");
+    textBox = new Clickable();
+    textBox.locate(300, 20);
+    textBox.resize(450, 100);
+    textBox.color = "white";
+    textBox.strokeWeight = 6.5;
+    textBox.stroke = "#807F79";
+    textBox.textFont = "helvetica";
+    textBox.textSize = 38;
+    textBox.textScaled = true;
+    textBox.textColor = "#807F79";
+
+  }
+  this.enter = function() {
+      console.log("Enter kirbyScene");
+      console.log(remyLoc);
+      if (remyLoc == 0) {
+        textBox.text = "There you are Remy!";
+        snd1.stop();
+        if (foundsnd.isPlaying()) {
+            foundsnd.stop();
+        } else {
+            foundsnd.play();
+        }
+      } else {
+        textBox.text = "it's a kirby inside a kirby..";
+      }
+  }
+  this.draw = function() {
+      let next = -1;
+      background("#ffedc1");
+      if (remyLoc == 0) {
+        image(kirbyImgGood,0,0,width,height);
+      } else {
+        image(kirbyImgBad,0,0,width,height);
+      }
+      textBox.draw();
+  }
+  this.mousePressed = function() {
+      if (remyLoc == 0) {
+        this.sceneManager.showScene(endScene);
+      } else {
+        this.sceneManager.showScene(middleScene);
+
+      }
+  }
+}
+function curtainScene() {
+  let next = -1;
+  var textBox;
+  this.setup = function() {
+    console.log("Setup curtainScene");
+    textBox = new Clickable();
+    textBox.locate(25, 140);
+    textBox.resize(450, 100);
+    textBox.color = "white";
+    textBox.strokeWeight = 6.5;
+    textBox.stroke = "#807F79";
+    textBox.textFont = "helvetica";
+    textBox.textSize = 38;
+    textBox.textScaled = true;
+    textBox.textColor = "#807F79";
+
+  }
+  this.enter = function() {
+      console.log("Enter curtainScene");
+      console.log(remyLoc);
+      if (remyLoc == 1) {
+        textBox.text = "There you are Remy!";
+        snd1.stop();
+        if (foundsnd.isPlaying()) {
+            foundsnd.stop();
+        } else {
+            foundsnd.play();
+        }
+      } else {
+        textBox.text = "It's a old pair of socks...";
+      }
+  }
+  this.draw = function() {
+      let next = -1;
+      background("#ffedc1");
+      if (remyLoc == 1) {
+        image(curtainsImgGood,0,0,width,height);
+      } else {
+        image(curtainsImgBad,0,0,width,height);
+      }
+      textBox.draw();
+  }
+  this.mousePressed = function() {
+      if (remyLoc == 1) {
+        this.sceneManager.showScene(endScene);
+      } else {
+        this.sceneManager.showScene(middleScene);
+
+      }
+  }
+}
+////////////////////// Left Scene //////////////////////
+function leftScene() {
+  let next = -1;
+  var shadowSprite, blanketSprite, windowSprite, rightArrow;
+  var helpGameButton, helpScreen; //Clickables
+  var helpScreenVis = 0;
+
+  this.setup = function()  {
+    background("blue");
+    textAlign(CENTER);
+    textSize(29);
+    console.log("We are at setup for leftScene");
+
+    //Clickables
+    helpGameButton = new Clickable();
+    helpGameButton.text = "help";
+    helpGameButton.textColor = "#807F79";
+    helpGameButton.textSize = 30;
+    helpGameButton.strokeWeight = 9;
+    helpGameButton.stroke = "#807F79";
+    helpGameButton.width = 100;
+    helpGameButton.height = 80;
+    helpGameButton.locate(20, 20);
+    /*************************/
+    helpScreen = new Clickable();
+    helpScreen.text = "";
+    helpScreen.strokeWeight = 0;
+    /*************************/
+
+    //Image setting
+    helpScreen.image = helpscreenImg;
+
+    /*************************/
+    helpGameButton.onHover = function() {
+        helpGameButton.color = "#9fe1ff";
+        helpGameButton.textColor = "#fffff";
+        helpGameButton.locate(20, 20);
+    }
+    helpGameButton.onOutside = function() {
+        helpGameButton.color = "#fffff";
+        helpGameButton.textColor = "#807F79";
+
+    }
+    helpGameButton.onPress = function() {
+        helpScreenVis = 1;
+        if (snd2.isPlaying()) {
+            snd2.stop();
+        } else {
+            snd2.play();
+        }
+    }
+    /*************************/
+    helpScreen.onHover = function() {
+        helpScreen.image = helpscreenImg;
+    }
+    helpScreen.onOutside = function() {
+        helpScreen.image = helpscreenImg;
+        helpScreen.color = "#ffedc1";
+        helpScreen.resize(680, 680);
+        helpScreen.locate(60, 60);
+    }
+    helpScreen.onPress = function() {
+        helpScreenVis = 0;
+        if (snd3.isPlaying()) {
+            snd3.stop();
+        } else {
+            snd3.play();
+        }
+    }
+    /*************************/
+  }
+
+  this.enter = function()  {
+      // snd1.pause();
+      // snd2.pause();
+      next = -1;
+      console.log("We are entering leftScene");
+
+      /*****************/
+      shadowSprite = createSprite(30, 425);
+      shadowSprite.addImage(shadowImg);
+      shadowSprite.scale = 0.32;
+      shadowSprite.mouseActive = true;
+      /*****************/
+      windowSprite = createSprite(702, 215);
+      windowSprite.addImage(windowImg);
+      windowSprite.scale = 0.41;
+      windowSprite.mouseActive = true;
+      /*****************/
+      blanketSprite = createSprite(460, 620);
+      blanketSprite.addImage(blanketImg);
+      blanketSprite.scale = 0.39;
+      blanketSprite.mouseActive = true;
+      /*****************/
+      rightArrow = createSprite(750, 400);
+      rightArrow.addImage(arrowRImg);
+      rightArrow.scale = 0.3;
+      rightArrow.mouseActive = true;
+      /*****************/
+      /*****************/
+      rightArrow.onMouseOver = function() {
+        this.scale = 0.33;
+      }
+      rightArrow.onMouseOut = function() {
+        this.scale = 0.3;
+      }
+      rightArrow.onMouseReleased = function() {
+        next = 0;
+        if (snd3.isPlaying()) {
+            snd3.stop();
+        } else {
+            snd3.play();
+        }
+      }
+      /*****************/
+      shadowSprite.onMouseOver = function() {
+        this.scale = 0.37;
+      }
+      shadowSprite.onMouseOut = function() {
+        this.scale = 0.32;
+      }
+      shadowSprite.onMouseReleased = function() {
+        next = 3;
+        if (snd1.isPlaying()) {
+            snd1.stop();
+        } else {
+            snd1.play();
+        }
+      }
+      /*****************/
+      windowSprite.onMouseOver = function() {
+        this.scale = 0.44;
+      }
+      windowSprite.onMouseOut = function() {
+        this.scale = 0.41;
+      }
+      windowSprite.onMouseReleased = function() {
+        next = 4;
+        if (snd1.isPlaying()) {
+            snd1.stop();
+        } else {
+            snd1.play();
+        }
+      }
+      /*****************/
+      blanketSprite.onMouseOver = function() {
+        this.scale = 0.42;
+      }
+      blanketSprite.onMouseOut = function() {
+        this.scale = 0.39;
+      }
+      blanketSprite.onMouseReleased = function() {
+        next = 5;
+        if (snd1.isPlaying()) {
+            snd1.stop();
+        } else {
+            snd1.play();
+        }
+      }
+    //  snd2.loop();
+      // if (snd3.isPlaying()) {
+      // // .isPlaying() returns a boolean
+      //     snd3.pause(); // .play() will resume from .pause() position
+      // //  background(255, 0, 0);
+      // } else {
+      //     snd3.play();
+      //   //background(0, 255, 0);
+      // }
+  }
+
+  this.draw = function() {
+      background(0,0,255);
+      image(leftSceneBg,0,0,width,height);
+        push();
+          drawSprites();
+          helpGameButton.draw();
+        if (helpScreenVis == 1) {
+          helpScreen.draw();
+        }
+        pop();
+      switch(next) {
+          case 0:
+            console.log("case 0");
+            rightArrow.remove();
+            shadowSprite.remove();
+            windowSprite.remove();
+            blanketSprite.remove();
+            this.sceneManager.showScene(middleScene);
+            break;
+          case 1:
+            console.log("case 1");
+            rightArrow.remove();
+            shadowSprite.remove();
+            windowSprite.remove();
+            blanketSprite.remove();
+            this.sceneManager.showScene(rightScene);
+            break;
+          case 2:
+            console.log("case 2");
+            rightArrow.remove();
+            shadowSprite.remove();
+            windowSprite.remove();
+            blanketSprite.remove();
+            this.sceneManager.showScene(leftScene);
+            break;
+          case 3:
+            console.log("case 3");
+            rightArrow.remove();
+            shadowSprite.remove();
+            windowSprite.remove();
+            blanketSprite.remove();
+            this.sceneManager.showScene(shadowScene);
+            break;
+          case 4:
+            console.log("case 4");
+            rightArrow.remove();
+            shadowSprite.remove();
+            windowSprite.remove();
+            blanketSprite.remove();
+            this.sceneManager.showScene(windowScene);
+            break;
+          case 5:
+            console.log("case 5");
+            rightArrow.remove();
+            shadowSprite.remove();
+            windowSprite.remove();
+            blanketSprite.remove();
+            this.sceneManager.showScene(blanketScene);
+            break;
+          default:
+            //console.log("default");
+        }
+  }
+  this.mousePressed = function() {
+
+    //console.log("exit");
+    //this.sceneManager.showNextScene();
+  }
+  // this.keyPressed = function()  {
+  //   }
+}
+
+function shadowScene() {
+  let next = -1;
+  var textBox;
+  this.setup = function() {
+    console.log("Setup shadowScene");
+    textBox = new Clickable();
+    textBox.locate(75, 440);
+    textBox.resize(450, 100);
+    textBox.color = "white";
+    textBox.strokeWeight = 6.5;
+    textBox.stroke = "#807F79";
+    textBox.textFont = "helvetica";
+    textBox.textSize = 38;
+    textBox.textScaled = true;
+    textBox.textColor = "#807F79";
+
+  }
+  this.enter = function() {
+      console.log("Enter shadowScene");
+      console.log(remyLoc);
+      if (remyLoc == 2) {
+        textBox.text = "There you are Remy!";
+        snd1.stop();
+        if (foundsnd.isPlaying()) {
+            foundsnd.stop();
+        } else {
+            foundsnd.play();
+        }
+      } else {
+        textBox.text = "It's my cat lamp...";
+      }
+  }
+  this.draw = function() {
+      let next = -1;
+      background("#ffedc1");
+      if (remyLoc == 2) {
+        image(shadowImgGood,0,0,width,height);
+      } else {
+        image(shadowImgBad,0,0,width,height);
+      }
+      textBox.draw();
+  }
+  this.mousePressed = function() {
+      if (remyLoc == 2) {
+        this.sceneManager.showScene(endScene);
+      } else {
+        this.sceneManager.showScene(leftScene);
+
+      }
+  }
+}
+function windowScene() {
+  let next = -1;
+  var textBox;
+  this.setup = function() {
+    console.log("Setup windowScene");
+    textBox = new Clickable();
+    textBox.locate(50, 50);
+    textBox.resize(450, 100);
+    textBox.color = "white";
+    textBox.strokeWeight = 6.5;
+    textBox.stroke = "#807F79";
+    textBox.textFont = "helvetica";
+    textBox.textSize = 35;
+    textBox.textScaled = true;
+    textBox.textColor = "#807F79";
+
+
+  }
+  this.enter = function() {
+      console.log("Enter windowScene");
+      console.log(remyLoc);
+      if (remyLoc == 3) {
+        textBox.text = "Remy was sunbathing!";
+        snd1.stop();
+        if (foundsnd.isPlaying()) {
+            foundsnd.stop();
+        } else {
+            foundsnd.play();
+        }
+      } else {
+        textBox.text = "That's my neighbor's cat!\nBut not Remy...";
+      }
+  }
+  this.draw = function() {
+      let next = -1;
+      background("#ffedc1");
+      if (remyLoc == 3) {
+        image(windowImgGood,0,0,width,height);
+      } else {
+        image(windowImgBad,0,0,width,height);
+      }
+      textBox.draw();
+  }
+  this.mousePressed = function() {
+      if (remyLoc == 3) {
+        this.sceneManager.showScene(endScene);
+      } else {
+        this.sceneManager.showScene(leftScene);
+
+      }
+  }
+}
+function blanketScene() {
+  let next = -1;
+  var textBox;
+  this.setup = function() {
+    console.log("Setup blanketScene");
+    textBox = new Clickable();
+    textBox.locate(150, 100);
+    textBox.resize(550, 100);
+    textBox.color = "white";
+    textBox.strokeWeight = 6.5;
+    textBox.stroke = "#807F79";
+    textBox.textFont = "helvetica";
+    textBox.textSize = 38;
+    textBox.textScaled = true;
+    textBox.textColor = "#807F79";
+
+  }
+  this.enter = function() {
+      console.log("Enter blanketScene");
+      console.log(remyLoc);
+      if (remyLoc == 4) {
+        textBox.text = "Remy was under the blanket!";
+        snd1.stop();
+        if (foundsnd.isPlaying()) {
+            foundsnd.stop();
+        } else {
+            foundsnd.play();
+        }
+      } else {
+        textBox.text = "It's my stuffed animal...";
+      }
+  }
+  this.draw = function() {
+      let next = -1;
+      background("#ffedc1");
+      if (remyLoc == 4) {
+        image(blanketImgGood,0,0,width,height);
+      } else {
+        image(blanketImgBad,0,0,width,height);
+      }
+      textBox.draw();
+  }
+  this.mousePressed = function() {
+      if (remyLoc == 4) {
+        this.sceneManager.showScene(endScene);
+      } else {
+        this.sceneManager.showScene(leftScene);
+
+      }
+  }
+}
+////////////////////// Right Scene /////////////////////
+
+function rightScene() {
+  let next = -1;
+  var cabinetSprite, chairSprite, shelfSprite, leftArrow;
+  var helpGameButton, helpScreen; //Clickables
+  var helpScreenVis = 0;
+
+  this.setup = function()  {
+      background("blue");
+      textAlign(CENTER);
+      textSize(29);
+      console.log("We are at setup for rightScene");
+
+      //Clickables
+      helpGameButton = new Clickable();
+      helpGameButton.text = "help";
+      helpGameButton.textColor = "#807F79";
+      helpGameButton.textSize = 30;
+      helpGameButton.strokeWeight = 9;
+      helpGameButton.stroke = "#807F79";
+      helpGameButton.width = 100;
+      helpGameButton.height = 80;
+      helpGameButton.locate(20, 20);
+      /*************************/
+      helpScreen = new Clickable();
+      helpScreen.text = "";
+      helpScreen.strokeWeight = 0;
+      /*************************/
+
+      //Image setting
+      helpScreen.image = helpscreenImg;
+
+      /*************************/
+      helpGameButton.onHover = function() {
+          helpGameButton.color = "#9fe1ff";
+          helpGameButton.textColor = "#fffff";
+          helpGameButton.locate(20, 20);
+      }
+      helpGameButton.onOutside = function() {
+          helpGameButton.color = "#fffff";
+          helpGameButton.textColor = "#807F79";
+
+      }
+      helpGameButton.onPress = function() {
+          helpScreenVis = 1;
+          if (snd2.isPlaying()) {
+              snd2.stop();
+          } else {
+              snd2.play();
+          }
+      }
+      /*************************/
+      helpScreen.onHover = function() {
+          helpScreen.image = helpscreenImg;
+      }
+      helpScreen.onOutside = function() {
+          helpScreen.image = helpscreenImg;
+          helpScreen.color = "#ffedc1";
+          helpScreen.resize(680, 680);
+          helpScreen.locate(60, 60);
+      }
+      helpScreen.onPress = function() {
+          helpScreenVis = 0;
+          if (snd3.isPlaying()) {
+              snd3.stop();
+          } else {
+              snd3.play();
+          }
+      }
+      /*************************/
+  }
+
+  this.enter = function()  {
+      // snd1.pause();
+      // snd2.pause();
+      next = -1;
+      console.log("We are entering rightScene");
+
+      /*****************/
+      cabinetSprite = createSprite(80, 700);
+      cabinetSprite.addImage(cabinetImg);
+      cabinetSprite.scale = 0.32;
+      cabinetSprite.mouseActive = true;
+      /*****************/
+      chairSprite = createSprite(502, 560);
+      chairSprite.addImage(chairImg);
+      chairSprite.scale = 0.41;
+      chairSprite.mouseActive = true;
+      /*****************/
+      shelfSprite = createSprite(550, 100);
+      shelfSprite.addImage(shelfImg);
+      shelfSprite.scale = 0.4;
+      shelfSprite.mouseActive = true;
+      /*****************/
+      leftArrow = createSprite(50, 400);
+      leftArrow.addImage(arrowLImg);
+      leftArrow.scale = 0.3;
+      leftArrow.mouseActive = true;
+      /*****************/
+
+      /*****************/
+      leftArrow.onMouseOver = function() {
+        this.scale = 0.33;
+      }
+      leftArrow.onMouseOut = function() {
+        this.scale = 0.3;
+      }
+      leftArrow.onMouseReleased = function() {
+        next = 0;
+        if (snd3.isPlaying()) {
+            snd3.stop();
+        } else {
+            snd3.play();
+        }
+      }
+      /*****************/
+      cabinetSprite.onMouseOver = function() {
+        this.scale = 0.37;
+      }
+      cabinetSprite.onMouseOut = function() {
+        this.scale = 0.32;
+      }
+      cabinetSprite.onMouseReleased = function() {
+        next = 3;
+        if (snd1.isPlaying()) {
+            snd1.stop();
+        } else {
+            snd1.play();
+        }
+      }
+      /*****************/
+      chairSprite.onMouseOver = function() {
+        this.scale = 0.44;
+      }
+      chairSprite.onMouseOut = function() {
+        this.scale = 0.41;
+      }
+      chairSprite.onMouseReleased = function() {
+        next = 4;
+        if (snd1.isPlaying()) {
+            snd1.stop();
+        } else {
+            snd1.play();
+        }
+      }
+      /*****************/
+      shelfSprite.onMouseOver = function() {
+        this.scale = 0.42;
+      }
+      shelfSprite.onMouseOut = function() {
+        this.scale = 0.39;
+      }
+      shelfSprite.onMouseReleased = function() {
+        next = 5;
+        if (snd1.isPlaying()) {
+            snd1.stop();
+        } else {
+            snd1.play();
+        }
+      }
+    //  snd2.loop();
+      // if (snd3.isPlaying()) {
+      // // .isPlaying() returns a boolean
+      //     snd3.pause(); // .play() will resume from .pause() position
+      // //  background(255, 0, 0);
+      // } else {
+      //     snd3.play();
+      //   //background(0, 255, 0);
+      // }
+  }
+
+  this.draw = function() {
+      background(0,0,255);
+      image(rightSceneBg,0,0,width,height);
+        push();
+          drawSprites();
+          helpGameButton.draw();
+        if (helpScreenVis == 1) {
+          helpScreen.draw();
+        }
+        pop();
+      switch(next) {
+          case 0:
+            console.log("case 0");
+            leftArrow.remove();
+            cabinetSprite.remove();
+            chairSprite.remove();
+            shelfSprite.remove();
+            this.sceneManager.showScene(middleScene);
+            break;
+          case 1:
+            console.log("case 1");
+            leftArrow.remove();
+            cabinetSprite.remove();
+            chairSprite.remove();
+            shelfSprite.remove();
+            this.sceneManager.showScene(rightScene);
+            break;
+          case 2:
+            console.log("case 2");
+            leftArrow.remove();
+            cabinetSprite.remove();
+            chairSprite.remove();
+            shelfSprite.remove();
+            this.sceneManager.showScene(leftScene);
+            break;
+          case 3:
+            console.log("case 3");
+            leftArrow.remove();
+            cabinetSprite.remove();
+            chairSprite.remove();
+            shelfSprite.remove();
+            this.sceneManager.showScene(cabinetScene);
+            break;
+          case 4:
+            console.log("case 4");
+            leftArrow.remove();
+            cabinetSprite.remove();
+            chairSprite.remove();
+            shelfSprite.remove();
+            this.sceneManager.showScene(chairScene);
+            break;
+          case 5:
+            console.log("case 5");
+            leftArrow.remove();
+            cabinetSprite.remove();
+            chairSprite.remove();
+            shelfSprite.remove();
+            this.sceneManager.showScene(shelfScene);
+            break;
+          default:
+            //console.log("default");
+        }
+  }
+  this.mousePressed = function() {
+
+    //console.log("exit");
+    //this.sceneManager.showNextScene();
+  }
+  // this.keyPressed = function()  {
+  //   }
+}
+
+
+function cabinetScene() {
+  let next = -1;
+  var textBox;
+  this.setup = function() {
+    console.log("Setup cabinetScene");
+    textBox = new Clickable();
+    textBox.locate(310, 250);
+    textBox.resize(450, 100);
+    textBox.color = "white";
+    textBox.strokeWeight = 6.5;
+    textBox.stroke = "#807F79";
+    textBox.textFont = "helvetica";
+    textBox.textSize = 38;
+    textBox.textScaled = true;
+    textBox.textColor = "#807F79";
+
+
+  }
+  this.enter = function() {
+      console.log("Enter cabinetScene");
+      console.log(remyLoc);
+      if (remyLoc == 5) {
+        textBox.text = "Remy is stuck\nin the cabinet!";
+        snd1.stop();
+        if (foundsnd.isPlaying()) {
+            foundsnd.stop();
+        } else {
+            foundsnd.play();
+        }
+      } else {
+        textBox.text = "It's a cabinet ghost...?\nIt's not remy though.";
+      }
+  }
+  this.draw = function() {
+      let next = -1;
+      background("#ffedc1");
+      if (remyLoc == 5) {
+        image(cabinetImgGood,0,0,width,height);
+      } else {
+        image(cabinetImgBad,0,0,width,height);
+      }
+      textBox.draw();
+  }
+  this.mousePressed = function() {
+      if (remyLoc == 5) {
+        this.sceneManager.showScene(endScene);
+      } else {
+        this.sceneManager.showScene(rightScene);
+
+      }
+  }
+}
+function chairScene() {
+  let next = -1;
+  var textBox;
+  this.setup = function() {
+    console.log("Setup chairScene");
+    textBox = new Clickable();
+    textBox.locate(150, 60);
+    textBox.resize(450, 100);
+    textBox.color = "white";
+    textBox.strokeWeight = 6.5;
+    textBox.stroke = "#807F79";
+    textBox.textFont = "helvetica";
+    textBox.textSize = 35;
+    textBox.textScaled = true;
+    textBox.textColor = "#807F79";
+
+
+  }
+  this.enter = function() {
+      console.log("Enter chairScene");
+      console.log(remyLoc);
+      if (remyLoc == 6) {
+        textBox.text = "There you are Remy!";
+        snd1.stop();
+        if (foundsnd.isPlaying()) {
+            foundsnd.stop();
+        } else {
+            foundsnd.play();
+        }
+      } else {
+        textBox.text = "It's just my jacket...";
+      }
+  }
+  this.draw = function() {
+      let next = -1;
+      background("#ffedc1");
+      if (remyLoc == 6) {
+        image(chairImgGood,0,0,width,height);
+      } else {
+        image(chairImgBad,0,0,width,height);
+      }
+      textBox.draw();
+  }
+  this.mousePressed = function() {
+      if (remyLoc == 6) {
+        this.sceneManager.showScene(endScene);
+      } else {
+        this.sceneManager.showScene(rightScene);
+
+      }
+  }
+}
+function shelfScene() {
+  let next = -1;
+  var textBox;
+  this.setup = function() {
+    console.log("Setup shelfScene");
+    textBox = new Clickable();
+    textBox.locate(60, 500);
+    textBox.resize(450, 100);
+    textBox.color = "white";
+    textBox.strokeWeight = 6.5;
+    textBox.stroke = "#807F79";
+    textBox.textFont = "helvetica";
+    textBox.textSize = 38;
+    textBox.textScaled = true;
+    textBox.textColor = "#807F79";
+
+
+  }
+  this.enter = function() {
+      console.log("Enter shelfScene");
+      console.log(remyLoc);
+      if (remyLoc == 7) {
+        textBox.text = "There you are Remy!";
+        snd1.stop();
+        if (foundsnd.isPlaying()) {
+            foundsnd.stop();
+        } else {
+            foundsnd.play();
+        }
+      } else {
+        textBox.text = "It's my anime figures...";
+      }
+  }
+  this.draw = function() {
+      let next = -1;
+      background("#ffedc1");
+      if (remyLoc == 7) {
+        image(shelfImgGood,0,0,width,height);
+      } else {
+        image(shelfImgBad,0,0,width,height);
+      }
+      textBox.draw();
+  }
+  this.mousePressed = function() {
+      if (remyLoc == 7) {
+        this.sceneManager.showScene(endScene);
+      } else {
+        this.sceneManager.showScene(rightScene);
+
+      }
+  }
+}
+
+///////////////////////  Ending  ////////////////////////
+function endScene()  {
+
+    var startButton; //Clickables
+    next = -1;
+    this.setup = function() {
+        console.log("We are at setup for ending");
+        background("blue");
+        textAlign(CENTER);
+        textSize(29);
+
+        /*************************/
+        startButton = new Clickable();
+        startButton.text = "";
+        startButton.strokeWeight = 0;
+
+        //Image setting
+        startButton.image = startImg;
+
+        /*************************/
+        startButton.onHover = function() {
+            startButton.image = startaImg;
+            startButton.resize(245.8, 144.4);
+            startButton.locate(20, 400);
+        }
+        startButton.onOutside = function() {
+            startButton.image = startImg;
+            startButton.color = "#ffedc1";
+            startButton.resize(245.8, 144.4);
+            startButton.locate(20, 400);
+        }
+        startButton.onPress = function() {
+            next = 1;
+            if (snd4.isPlaying()) {
+                snd4.stop();
+            } else {
+                snd4.play();
+            }
+        }
+    }
+
+    this.enter = function()  {
+      next = -1;
+        console.log("We are at entering ending");
+        loy = 100;
+        background("red");
+
+        bgm.pause();
+
+        foundsnd.stop();
+        if (endsnd.isPlaying()) {
+        // .isPlaying() returns a boolean
+            endsnd.pause(); // .play() will resume from .pause() position
+        } else {
+            endsnd.play();
+        }
+
+        // if (introSnd.isPlaying()) {
+        // // .isPlaying() returns a boolean
+        //     introSnd.pause(); // .play() will resume from .pause() position
+        // //  background(255, 0, 0);
+        // } else {
+        //     introSnd.play();
+        //   //background(0, 255, 0);
+        // }
+    }
+    this.draw = function()
+    {
+        background(255,255,255);
+        image(endscreen,0,0,width,height);
+        push();
+          startButton.draw();
+        pop();
+        if (next == 1) {
+          next = -1;
+          this.sceneManager.showScene( intro );
+        }
+    }
+    // this.keyPressed = function() {
+    // }
+    //this.keyPressed = function() {
+    //this.sceneManager.showScene(scene2);
+    //}
+}

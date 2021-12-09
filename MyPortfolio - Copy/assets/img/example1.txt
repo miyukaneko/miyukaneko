@@ -1,0 +1,55 @@
+int counter = 0;
+float x;
+float y;
+float easing = 0.03;
+//follow mouse
+  Float a = 0.0;
+  float inc = TWO_PI/10.0;
+
+void setup() {
+  size(1000, 1000);
+  stroke(255, 0, 0);
+  background(0);
+  frameRate(50);
+  smooth();
+    for (int i=0; i<1000; i+=10) {
+    line(i, 500, i, 500+sin(a)*40.0);
+    println(" The angle = " + a + "The sin = " + sin(a));
+    a = a + inc;
+  }
+ noStroke(); 
+}
+
+void draw() {
+  float targetX = mouseX;
+  float dx = targetX - x;
+  x += dx * easing;
+  
+  float targetY = mouseY;
+  float dy = targetY - y;
+  y += dy * easing;
+ 
+  fill(random(255),random(255),random(255),90);
+  ellipse(x,counter,70,70);
+  //follows mouse x-axis movement
+  fill(random(255),random(255),random(255),90);
+  ellipse(x+100,counter,70,70);
+  
+  fill(random(255),random(255),random(255),90);
+  rect(counter,y,70,70);
+  //follows mouse y-axis movement
+  fill(random(255),random(255),random(255),90);
+  rect(counter,y+100,70,70);
+
+  if (counter > height) {
+    background(0);
+    counter = 0;
+  } else {
+   counter+=5; 
+  }
+  if (frameCount < 200 ) {
+    saveFrame("images/face-######.png");
+  } else {  
+    exit();  
+  }
+}
