@@ -36,12 +36,107 @@
 <body>
 
   <!-- ======= Navbar ======= -->
-   <style>
+  <style>
 .custom-navmenu {
-  background-color: lightsteelblue;
-  color: white;
+ background-color: lightsteelblue;
+ color: white;
 }
+em {
+	color: #232027;
+}
+
+.wrapper {
+	width: 40%;
+	margin: 40px auto;
+}
+
+div.gallery {
+	margin-top: 30px;
+}
+
+div.gallery ul {
+	list-style-type: none;
+	margin-left: 35px;
+}
+
+/* animation */
+div.gallery ul li, div.gallery li img {
+	-webkit-transition: all 0.1s ease-in-out;
+  	-moz-transition: all 0.1s ease-in-out;
+  	-o-transition: all 0.1s ease-in-out;
+  	transition: all 0.1s ease-in-out;
+}
+
+div.gallery ul li {
+	position: relative;
+	float: left;
+	width: 130px;
+	height: 130px;
+	margin: 5px;
+	padding: 5px;
+	z-index: 0;
+}
+
+/* Make sure z-index is higher on hover */
+/* Ensure that hover image overlapped the others */
+div.gallery ul li:hover {
+	z-index: 5;
+}
+
+/* Image is position nicely under li */
+div.gallery ul li img {
+	position: absolute;
+	left: 0;
+	top: 0;
+	border: 1px solid #dddddd;
+	padding: 5px;
+	width: 130px;
+	height: 130px;
+	background: #f0f0f0;
+}
+
+div.gallery ul li img:hover {
+	width: 200px;
+	height: 200px;
+	margin-top: -130px;
+	margin-left: -130px;
+	top: 65%;
+	left: 65%;
+}
+
+p.attribution {
+	font-family: 'Consolas';
+	color: #000;
+	clear: both;
+	text-align: center;
+	line-height: 25px;
+	padding-top: 30px;
+}
+
+p.attribution a {
+	color: #4c8d7c;
+}
+
+/* Responsive hack */
+@media only screen and (min-width: 499px) and (max-width: 1212px) {
+	.wrapper {
+		width: 500px;
+	}
+}
+
+@media only screen and (max-width: 498px) {
+	.wrapper {
+		width: 300px;
+	}
+
+	div.gallery ul {
+		list-style-type: none;
+		margin: 0;
+	}
+}
+
 </style>
+
      <div class="custom-navmenu" id="main-navbar">
     <div class="container py-2 py-md-5">
       <div class="row align-items-start">
@@ -66,8 +161,8 @@
       <div class="container">
         <div class="row mb-4 align-items-center">
           <div class="col-md-6" data-aos="fade-up">
-            <h2>Art Kiosk, Redwood City</h2>
-            <p>3D ART</p>
+            <h2>Looking Through the Blue-lit Window</h2>
+            <p>INSTALLATION ART</p>
           </div>
         </div>
       </div>
@@ -76,21 +171,60 @@
         <div class="container">
           <div class="row align-items-stretch">
             <div class="col-md-8" data-aos="fade-up">
-              <img src="assets/img/artkiosk_thumb.jpg" alt="Image" class="img-fluid">
+              <img src="assets/img/ak/ak_thumb1.jpg" alt="Image" class="img-fluid">
             </div>
 
               <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100">
-              <div class="sticky-content">
-                <h3 class="h3">To Be Announced... (2023 Summer)</h3>
-                <p class="mb-4"><span class="text-muted"></span></p>
-
+                <div class="/sticky-content">
+                  <h3 class="h3">Art Kiosk Installation at Redwood City</h3>
+                    <p class="mb-4"><span class="text-muted"></span></p>
                 <div class="mb-5">
-                  <p>My project will be on display at the Art Kiosk at Redwood City, from June 24th to August 6th. For more info, <a href="https://fungcollaboratives.org/projects/current/art-kiosk/description/">click here.</a></p>
+                    <p>Fung Collaboratives and Redwood City Improvement Association presents...</p>
+                    <p>"Looking Through the Blue-lit Window" by Miyu Kaneko</p>
+                    <p>Curated by Lance M. Fung</p>
+                    <p>July 16 - August 22, 2023</p>
+                    <ul class="list-unstyled list-line mb-5">
+                      <li><a href="https://fungcollaboratives.org/projects/current/art-kiosk/description/" target="_blank">Fung collaboratives site</a></li>
+                      <li><a href="https://www.redwoodcity.org/departments/parks-recreation-and-community-services/art-kiosk" target="_blank">Redwood City Parks Recreation and Community Services site</a></li>
+                      <li><a href="https://www.rwcpulse.com/local-news/ae/new-art-installation-on-courthouse-square-explores-the-addictive-nature-of-social-media-7320352" target="_blank">Press @ RWC Pulse</a></li>
+                    </ul>
+                </div>
+              </div>
             </div>
-            </div>
-            </div>
+            <div data-aos="fade-up" data-aos-delay="100">
+              <p class="mb-4"><span class="text-muted"></span></p>
+                <h2 class="h5">INFO:</h2>
+            <p> During 2022 - 2023, I had the wonderful opportunity to work with Fung Collaboratives and the Redwood City Improvement Association to create my first solo exhibition at the Art Kiosk on courthouse square at 2208 Broadway, Redwood City. The Art Kiosk is a public gallery space located in the heart of the historical redwood city, in which artists from all over the world create site-commissioned works on display for a month. The initiative was conceived and is curated by Lance M. Fung. Donated curatorial work and project management for the exhibition series is provided by Fung Collaboratives. The Redwood City Improvement Association (RCIA) has been the sole sponsor ever since the inaugural year of 2019. </p>
+            <p>As a freshly graduated baby artist, this project was huge for me - with thoughts of fear, pressure, excitement and hope, I thought to myself, what is the most “miyu” project I can make? My answer to this was a fun, cutesy work with a message geared towards younger generations. A digital, mixed-media work that highlights my hopes and fears, and feelings towards myself and the new generation.</p>
+
+            <div class="wrapper">
+            		<div class="gallery">
+            			<ul>
+            				<li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/53819/9.png"></li>
+            				<li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/53819/2.png"></li>
+            				<li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/53819/3.png"></li>
+            				<li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/53819/1.png"></li>
+            				<li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/53819/4.png"></li>
+            				<li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/53819/5.png"></li>
+            				<li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/53819/7.png"></li>
+            				<li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/53819/8.png"></li>
+            				<li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/53819/6.png"></li>
+            			</ul>
+            		</div>
+            	</div>
+
+            <h2 class="h5">ARTIST STATEMENT:</h2>
+            <p>For my generation, life without internet and social media is unimaginable. Technology often shapes and defines our relationships, values, and time. This inevitably gives birth to two identities, one online and another offline. How can we differentiate the two in a healthy way?</p>
+            <p>“Looking through the blue-lit window” focuses on the addictive nature and glorification of social media, and its effects on our online and offline identities. “Looking through rose-tinted glasses” is a common phrase used by earlier generations in observance of seeing only the pleasant things. The gen Z’s glasses come in the form of LED screens. Studies show gen Z spends around 9 hours on average, half of our waking hours on screen time. Physically, the screen distorts our perception of time, since the blue light emits shorter wavelengths and higher energy than other colors. This combination disrupts our body's natural wake and sleep cycle. Mentally, it distorts our values and priorities, resulting in unhealthy relationships and lifestyles. Our self-worth diminishes as it becomes all too easy to compare our lives to the more vibrant lives the window shows us.</p>
+            <p>“Looking through the blue-lit window” uses 6 layers of plexiglass sheets to create a sense of depth. Each panel illustrates a window in tandem with the others and results in a tunnel effect. These layers give an overdose of colorful visuals. Upon seeing the artwork as a whole, it aims to be alluring while oppressive, signifying what lies behind the façade.</p>
+            <p>This installation is my answer to the question: “How can we build a healthier relationship with technology, as our cyborg identities become more and more inevitable?” I hope to present the realization between the distinction of the online and offline identity and invite all to take a step back from the tunnel to see the bigger picture. The internet is not inherently a dangerous, negative space, nor is it completely positive and safe. It is up to us as individuals to navigate through the tunnel of windows and find our identity within.</p>
+          </div>
+
           </div>
         </div>
+      </div>
+    </div>
+
 <!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -107,6 +241,7 @@
   </footer>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
   <!-- Vendor JS Files -->
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
